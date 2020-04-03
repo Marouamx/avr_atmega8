@@ -1,0 +1,31 @@
+   
+
+
+        
+
+
+ 
+
+*************AVR_ADC_REGISTERS*****************
+
+
+ADMUX register : 
+
+bit7 REFS1 -> 0 / bit6 REFS0 -> 1 for using AVCC as V_ref
+
+bit5 ADLAR -> 0 left adjust
+
+bit0 MUX0:4 -> 0 for input channel 0 
+
+
+
+
+ADCSRA register : 
+
+
+bit7 -> enabe adc 
+bit6 -> set it to 1 to start conversion /get cleared when conversion is done 
+bit 0:2 to choose prescaler 128 -> bit0=bit1=bit2=1 
+
+
+ADCL and ADCH registers for storing the final output  
