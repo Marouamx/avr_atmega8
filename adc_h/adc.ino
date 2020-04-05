@@ -10,7 +10,7 @@ int main () {
   while(1) {
   
     Serial.print("value 1 : ");Serial.println(adc_read(1)); 
-    Serial.print("value 2 : ");Serial.println(adc_read(2));
+    Serial.print("value 2 : ");Serial.println(adc_advanced_read(2,1,7));
     
     _delay_ms(100);
     
