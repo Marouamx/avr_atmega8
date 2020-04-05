@@ -1,3 +1,10 @@
+/*
+*** compiler : avr-gcc  
+*** Last update : 5/4/2020 
+*/  
+
+
+
 #ifndef ADCmx_H
 #define ADCmx_H
 
