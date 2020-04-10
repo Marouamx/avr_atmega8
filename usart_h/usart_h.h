@@ -50,33 +50,31 @@ extern volatile UCSR0Abits_t debug __asm__ ("0xC0");
 extern volatile char BD_low_bits __asm__ ("0xC4");
 extern volatile char BD_high_bits __asm__ ("0xC5");
 
-
 void usart_init(unsigned long Baud_rate) {
 
-  unsigned int ubrr = F_CPU/16/Baud_rate - 1 ;
-  BD_high_bits = (unsigned char) (ubrr>>8) ;
-  BD_low_bits = (unsigned char) ubrr;
-  enable._tx = 1 ;
-  enable._rx = 1 ;
-  config._charSize =  3 ; // 8 bits data
+    unsigned int ubrr = F_CPU/16/Baud_rate - 1 ;
+    BD_high_bits = (unsigned char) (ubrr>>8) ;
+    BD_low_bits = (unsigned char) ubrr;
+    enable._tx = 1 ;
+    enable._rx = 1 ;
+    config._charSize =  3 ; // 8 bits data
 
 }
 
-
 void usart_advanced_init (unsigned long Baud_rate, char _Parity , char _stopBit , char _mode , char _charSize ) {
 
-  unsigned int ubrr = F_CPU/16/Baud_rate - 1 ;
+    unsigned int ubrr = F_CPU/16/Baud_rate - 1 ;
 
-  config._charSize = _charSize;
-  config._mode = _mode;
-  config._stopBit = _stopBit ;
-  config._Parity = _Parity ;
+    config._charSize = _charSize;
+    config._mode = _mode;
+    config._stopBit = _stopBit ;
+    config._Parity = _Parity ;
 
-  BD_high_bits = (unsigned char) (ubrr>>8) ;
-  BD_low_bits = (unsigned char) ubrr;
+    BD_high_bits = (unsigned char) (ubrr>>8) ;
+    BD_low_bits = (unsigned char) ubrr;
 
-  enable._tx = 1 ;
-  enable._rx = 1 ;
+    enable._tx = 1 ;
+    enable._rx = 1 ;
 
 
 }
@@ -84,19 +82,18 @@ void usart_advanced_init (unsigned long Baud_rate, char _Parity , char _stopBit 
 void usart_transmit_int(unsigned int data) {
 
 
-  while (debug._UDRE0 == 0) ; // wait for empty T buffer
+    while (debug._UDRE0 == 0) ; // wait for empty T buffer
 
-  if (config._charSize > 3) { // bigger than 8 bits
-      enable._9th_Tdata = 0 ;
-      if ( data & 0x100) {
-          enable._9th_Tdata = 1 ;
-          UDR0 = data ;
-      }
-  }
-  else  UDR0 = data ;
+    if (config._charSize > 3) { // bigger than 8 bits
+        enable._9th_Tdata = 0 ;
+        if ( data & 0x100) {
+            enable._9th_Tdata = 1 ;
+            UDR0 = data ;
+        }
+    }
+    else  UDR0 = data ;
 
 }
-
 
 void usart_transmit(unsigned char data) {
 
@@ -105,28 +102,40 @@ void usart_transmit(unsigned char data) {
 
 }
 
-
-unsigned char usart_receive () {
-
-  while (debug._R_complete == 0) ; // wait for empty R buffer
-
-  if (debug._Parity_error == 1 || debug._Frame_error == 1 ) return 0;
-  if (debug._OverRun == 1 ) return -1;
-
-
-  return UDR0 ;
-}
-
 void usart_transmit_string (char* data) {
 
     for (int i =0 ; data[i] != 0 ; i++) {
 
         usart_transmit(data[i]);
 
-        }
+    }
 }
 
+unsigned char usart_receive () {
 
+    while (debug._R_complete == 0) ; // wait for empty R buffer
+
+    if (debug._Parity_error == 1 || debug._Frame_error == 1 ) return 0;
+    if (debug._OverRun == 1 ) return -1;
+
+
+    return UDR0 ;
+}
+
+void usart_receive_string(unsigned char *string)  {
+    //Receive a character until carriage return or newline
+
+    unsigned char i=0,J=0;
+
+    do {
+        *(string+i)= usart_receive();
+        J = *(string+i);
+        i++;
+    } while((J!='\n') && (J!='\r'));
+
+    i++;
+    *(string+i) = '\0';
+
+}
 
 #endif
-
