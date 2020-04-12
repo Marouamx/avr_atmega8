@@ -42,7 +42,7 @@ ISR(TIMER0_COMP1_vect) {
     }
 }
 
-int int main() {
+int main() {
 
     DDRC |= (1<<5) ; // bit5 as outputs
     Setup_timer0() ;
