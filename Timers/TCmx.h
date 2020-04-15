@@ -79,7 +79,11 @@ config._COM0A = _OC0A_mode;
 
 config._COM0B = _OC0B_mode;
 
+<<<<<<< HEAD
 clk_select._CS0 = 5 ; //-- start counting
+=======
+clk_select._CS0 = 5 ; // no prescaling -- start counting
+>>>>>>> 148d070277910071a8481399e348d7b1293fef62
 
 OCR0A = (uint8_t) duty_cycleA/100 * 255 ;
 OCR0B = (uint8_t) duty_cycleB/100 * 255 ;
