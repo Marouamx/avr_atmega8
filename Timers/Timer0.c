@@ -3,8 +3,6 @@
 
 Timer registers in the ATmega8
 
-bits WGM00 WGM01 WGM02 for changing modes
-
 0CR0A -- 8bit register -- use this formula  F_CPU/2/prescaler/output_freq-1
 
 
