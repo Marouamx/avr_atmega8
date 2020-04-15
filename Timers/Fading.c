@@ -1,9 +1,5 @@
 #include <avr/io.h>
-<<<<<<< HEAD
 #include "TCmx.h"
-=======
-#include "TCmx"
->>>>>>> 148d070277910071a8481399e348d7b1293fef62
 #inlcude<util/delay.h>
 
 
@@ -20,13 +16,8 @@ int main () {
 
         while(1) {
 
-<<<<<<< HEAD
             duty +=10;
             _delay_ms(100);
-=======
-            duty +=5;
-            delay(50);
->>>>>>> 148d070277910071a8481399e348d7b1293fef62
             if(duty>100) duty = 0;
 
 
