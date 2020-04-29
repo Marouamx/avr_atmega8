@@ -1,1 +1,1 @@
-header file for working with usart feature in 8 bits avr MCUs
+header file for working with usart peripheral in 8 bits avr MCUs

@@ -13,8 +13,15 @@ Marouamx
 //value given to OC0A F_clk/2/prescaler/F(OC0x)-1
 //F(OC0x)pwm = F_clk/prescaler/256
 
+#ifndef TCmx_H
+#define TCmx_H
+
+
 #include<avr/io.h>
-#define F_CPU 16000000
+
+#ifndef F_CPU
+#define F_CPU 16000000UL
+#endif
 
 typedef struct {
 
@@ -85,3 +92,4 @@ OCR0A = (uint8_t) duty_cycleA/100 * 255 ;
 OCR0B = (uint8_t) duty_cycleB/100 * 255 ;
 
 }
+#endif
